@@ -6,3 +6,6 @@ body {
   background-color: #0a0a0a ;
   overflow: hidden;
 }
+.custom-placeholder::placeholder {
+  color: #9b9b9b; /* Change this to your desired color */
+}

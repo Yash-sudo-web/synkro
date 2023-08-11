@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import google from "../assets/google.jpg";
 import facebook from "../assets/facebook.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [isEmailFilled, setIsEmailFilled] = useState(false);
@@ -74,15 +75,16 @@ const Login = () => {
                 </button>
               </div>
             </form>
-            <div className="flex flex-row">
-              <hr class="h-px w-[144px] my-3 mr-4 bg-[#525252] border-0"></hr>Or
-              <hr class="h-px w-[144.5px] my-3 ml-4 bg-[#525252] border-0"></hr>
+          </div>
+          <div className="flex flex-row text-white">
+              <hr class="h-px w-[144px] mt-3 mb-6 mr-4 bg-[#525252] border-0"></hr>Or
+              <hr class="h-px w-[144.5px] mt-3 mb-6 ml-4 bg-[#525252] border-0"></hr>
             </div>
             <div className="hover:cursor-pointer border border-[#525252] w-[340px] rounded-lg h-[50px] flex flex-row justify-between items-center mb-6">
               <div className="ml-3">
                 <img width={24} height={24} src={google}></img>
               </div>
-              <div className="mr-[27px]">
+              <div className="mr-[27px] text-white">
                 <p>Sign in with Google</p>
               </div>
               <div></div>
@@ -91,12 +93,12 @@ const Login = () => {
               <div className="ml-3">
                 <img width={24} height={24} src={facebook}></img>
               </div>
-              <div className="mr-3">
+              <div className="mr-3 text-white">
                 <p>Sign in with Facebook</p>
               </div>
               <div></div>
             </div>
-          </div>
+            <div className="text-white">New to Synkro? <Link to="/"><span className="text-[#a2fe65]">Sign up</span></Link></div>
         </div>
       </div>
     </>

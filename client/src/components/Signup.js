@@ -21,7 +21,7 @@ const Signup = () => {
         <div className="w-[32px] flex flex-row ml-4"><img src={logo} alt="logo" /><div className='ml-2 text-3xl'>Synkro</div></div>
     </div>
 
-
+<div className='flex flex-row'>
     <div className="text-white border-r-[1px] border-[#525252] h-[100vh] w-1/4 relative flex justify-center">
         <div className='absolute top-[60px] flex flex-col'>
             <p className='text-[44px]'>Synkro your chats<br/> with us.</p>
@@ -55,13 +55,16 @@ const Signup = () => {
               className={`font-bold border border-[#525252] w-[340px] h-[50px] rounded-lg ${isEmailFilled ? 'bg-[#a2fe65] text-[#0a0a0a] hover:cursor-pointer' : 'bg-[#141414] text-[#525252] cursor-not-allowed'}`} disabled={!isEmailFilled}>Get Started</button></div>
               </form>
               <br/>
-              <p className='text-[#525252] font-semibold'>Already have an account? <span className='text-[#a2fe65] font-semibold hover:cursor-pointer'>Login</span></p>
+              <p className='text-[#525252] font-semibold'>Already have an account? <Link to="/login"><span className='text-[#a2fe65] font-semibold hover:cursor-pointer'>Login</span></Link></p>
             </div>
         </div>
     </div>
 
     {/* right div */}
-    <div></div>
+    <div className='text-white text-4xl'>
+        Welcome to Synkro! Start your journey by entering your email address.
+    </div>
+    </div>
     </>
   )
 }

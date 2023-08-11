@@ -87,7 +87,7 @@ const Signup = () => {
                 </div>
               </form>
               <br />
-              <p className="text-[#525252] font-semibold">
+              <p className="text-[#9b9b9b] font-semibold">
                 Already have an account?{" "}
                 <Link to="/login">
                   <span className="text-[#a2fe65] font-semibold hover:cursor-pointer">

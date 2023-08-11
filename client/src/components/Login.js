@@ -98,7 +98,7 @@ const Login = () => {
               </div>
               <div></div>
             </div>
-            <div className="text-white">New to Synkro? <Link to="/"><span className="text-[#a2fe65]">Sign up</span></Link></div>
+            <div className="text-[#9b9b9b] font-semibold">New to Synkro? <Link to="/"><span className="text-[#a2fe65]">Sign up</span></Link></div>
         </div>
       </div>
     </>

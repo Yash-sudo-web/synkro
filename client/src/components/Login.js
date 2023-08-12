@@ -20,6 +20,20 @@ const Login = () => {
     setEmail(newEmail);
     setIsEmailFilled(newEmail !== "");
   };
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const response = await fetch("http://localhost:5000/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify({ 'email':email, 'password':pass }),
+    });
+    const data = await response.json();
+    console.log(data);
+    localStorage.setItem('token', "Logged IN");
+  };
   return (
     <>
       <div className="border-b-[1px] border-[#525252] text-white h-[60px] flex items-center">
@@ -63,7 +77,7 @@ const Login = () => {
               <br />
               <div className="">Forgot your password?</div>
               <div className="pt-5 pb-3">
-                <button
+                <button onClick={handleLogin}
                   className={`font-bold border border-[#525252] w-[340px] h-[50px] rounded-lg ${
                     isEmailFilled && isPassFilled
                       ? "bg-[#a2fe65] text-[#0a0a0a] hover:cursor-pointer"

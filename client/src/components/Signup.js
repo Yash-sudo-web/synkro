@@ -6,14 +6,42 @@ import { Link } from "react-router-dom";
 import "../index.css";
 import { useState } from "react";
 const Signup = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [isEmailFilled, setIsEmailFilled] = useState(false);
-
+  const [data, setdata] = useState({
+    emailreq: "",
+    userName: "",
+    password: "",
+    phoneNumber: "",
+    dateOfBirth: "",
+    gender: "",
+    location: "",
+})
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
     setIsEmailFilled(newEmail !== "");
   };
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
+    data.emailreq = email;
+  };
+  const handleInputChange = ({ currentTarget: input }) => {
+    setdata({ ...data, [input.name]: input.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:5000/api/user/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+    const json = await response.json();
+    console.log(json);
+  };
+
   return (
     <>
       {/* upper logo part */}
@@ -81,6 +109,7 @@ const Signup = () => {
                         : "bg-[#141414] text-[#525252] cursor-not-allowed"
                     }`}
                     disabled={!isEmailFilled}
+                    onClick={handleEmailSubmit}
                   >
                     Get Started
                   </button>
@@ -100,8 +129,102 @@ const Signup = () => {
         </div>
 
         {/* right div */}
-        <div className="text-white text-4xl">
-          Welcome to Synkro! Start your journey by entering your email address.
+        <div>
+          <div className="text-white text-4xl">
+            Welcome to Synkro! Start your journey by entering your email
+            address.
+          </div>
+          {data.emailreq && (
+            <div className="text-white text-2xl">{data.emailreq}</div>
+          )}
+
+          <form className="text-white flex flex-col">
+            <label>
+              Username<span className="text-[#a2fe65]">*</span>
+            </label>
+            <input
+              name="userName"
+              type="text"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              placeholder="Your Username"
+              value={data.userName}
+              onChange={handleInputChange}
+              required
+            ></input>
+
+            <label>
+              Password<span className="text-[#a2fe65]">*</span>
+            </label>
+
+            <input
+              name="password"
+              type="password"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              placeholder="Your Password"
+              value={data.password}
+              onChange={handleInputChange}
+              required
+            ></input>
+
+            <label>
+              Phone Number<span className="text-[#a2fe65]">*</span>
+            </label>
+
+            <input
+              name="phoneNumber"
+              type="tel"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              placeholder="Your Phone Number"
+              value={data.phoneNumber}
+              onChange={handleInputChange}
+              required
+            ></input>
+
+            <label>Date of Birth</label>
+
+            <input
+              name="dateOfBirth"
+              type="date"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              value={data.dateOfBirth}
+              onChange={handleInputChange}
+              required
+            ></input>
+
+            <label>Gender</label>
+
+            <select
+              name="gender"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              value={data.gender}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label>Location</label>
+
+            <input
+              name="location"
+              type="text"
+              className="bg-[#0a0a0a] pl-3 mt-1 mb-5 border border-[#525252] w-[340px] h-[32px] text-white custom-placeholder"
+              placeholder="Your Country"
+              value={data.location}
+              onChange={handleInputChange}
+              required
+            ></input>
+
+            <button
+              type="submit"
+              className="bg-[#a2fe65] py-2 px-4 text-black rounded-full cursor-pointer w-[100px]"
+              onClick={handleSubmit}
+            >
+              Sign Up
+            </button>
+          </form>
         </div>
       </div>
     </>

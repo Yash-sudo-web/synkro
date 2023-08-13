@@ -35,8 +35,7 @@ router.post('/login',passport.authenticate("local"), async (req, res) => {
 router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), async (req, res)=> {
-    res.send(req.user)
-    // res.redirect('http://localhost:3000/app?id='+userID);
+    res.redirect('http://localhost:3000/app?Id='+req.user._id);
 });
 
 module.exports = router;

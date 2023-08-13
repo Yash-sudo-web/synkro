@@ -17,6 +17,19 @@ app.use(cookieSession({
     maxAge: 24*60*60*1000,
     keys: [process.env.COOKIE_KEY]
 }));
+app.use(function(request, response, next) {
+    if (request.session && !request.session.regenerate) {
+        request.session.regenerate = (cb) => {
+            cb()
+        }
+    }
+    if (request.session && !request.session.save) {
+        request.session.save = (cb) => {
+            cb()
+        }
+    }
+    next()
+})
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());

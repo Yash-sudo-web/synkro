@@ -1,5 +1,19 @@
 const localStrategy = require('passport-local').Strategy
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("./models/registration.js");
+const passport = require('passport');
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id)
+        return done(null,user)
+    } catch (error) {
+        return done(error)
+    }
+});
 exports.initializingPassport = (passport) => {
     passport.use(new localStrategy({usernameField:'email',passwordField:'password'},async (username, password, done) => {
         try {
@@ -14,8 +28,49 @@ exports.initializingPassport = (passport) => {
         } catch (error) {
             return done(error,false) 
         }
-    }))
+    }))   
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    });
 
+    passport.deserializeUser(async (id, done) => {
+        try {
+            const user = await User.findById(id)
+            return done(null,user)
+        } catch (error) {
+            return done(error)
+        }
+    });
+}
+
+exports.googlePassport = (passport) => {
+    
+    passport.use(
+      new GoogleStrategy(
+        {
+          clientID: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          callbackURL: "/api/user/google/callback",
+        },
+        async (accessToken, refreshToken, profile, cb) => {
+            const user = await User.findOne({ email: profile.emails[0].value });
+            if (user) {
+              return cb(null, user);
+            }
+            try {
+                const newUser = await User.create({
+                    googleId: profile.id,
+                    userName: profile.displayName,
+                    email: profile.emails[0].value,
+                });
+                return cb(null, newUser);
+            } catch (error) {
+                console.log(error);
+                return cb(error);
+          }
+        }
+      )
+    );
     passport.serializeUser((user, done) => {
         done(null, user.id);
     });

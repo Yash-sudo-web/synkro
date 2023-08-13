@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User  = require('../models/registration.js');
 const passport = require('passport');
-
+const app = express();
+const cors = require('cors');
+app.use(cors());
 router.post('/register', async (req, res) => {
     const user = await User.findOne({email:req.body.emailreq})
     if(user){
@@ -29,5 +31,12 @@ router.post('/register', async (req, res) => {
 router.post('/login',passport.authenticate("local"), async (req, res) => {
     res.json("Logged in")
 })
+
+router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), async (req, res)=> {
+    res.send(req.user)
+    // res.redirect('http://localhost:3000/app?id='+userID);
+});
 
 module.exports = router;

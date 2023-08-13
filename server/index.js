@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cookieSession = require("cookie-session");
 const user = require("./routes/user");
 const express = require('express');
 const cors = require('cors');
@@ -7,10 +8,15 @@ const expressSession = require('express-session');
 const app = express();
 const port = 5000;
 const connectMongoose = require("./db.js");
-const { initializingPassport } = require("./passportConfig");
+const { initializingPassport, googlePassport } = require("./passportConfig");
 
 connectMongoose();
 initializingPassport(passport);
+googlePassport(passport);
+app.use(cookieSession({
+    maxAge: 24*60*60*1000,
+    keys: [process.env.COOKIE_KEY]
+}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());

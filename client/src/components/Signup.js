@@ -41,6 +41,11 @@ const Signup = () => {
     const json = await response.json();
     console.log(json);
   };
+  const handleGoogleAuth  = async (e) => {
+    e.preventDefault();
+    localStorage.setItem('token', "Logged IN");
+    window.location.href = "http://localhost:5000/api/user/google"
+  };
 
   return (
     <>
@@ -68,7 +73,7 @@ const Signup = () => {
               <div className="ml-3">
                 <img width={24} height={24} src={google}></img>
               </div>
-              <div className="mr-[27px]">
+              <div className="mr-[27px]" onClick={handleGoogleAuth}>
                 <p>Sign in with Google</p>
               </div>
               <div></div>

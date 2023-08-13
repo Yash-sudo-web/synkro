@@ -33,6 +33,7 @@ const Login = () => {
     const data = await response.json();
     console.log(data);
     localStorage.setItem('token', "Logged IN");
+    window.location.href = "http://localhost:3000/app";
   };
   return (
     <>

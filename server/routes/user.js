@@ -37,7 +37,7 @@ router.get('/google',passport.authenticate('google', { scope: ['profile', 'email
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), (req, res)=> {
     res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
 });
-router.get('/facebook',passport.authenticate('facebook', { scope: ['public_profile'] }));
+router.get('/facebook',passport.authenticate('facebook', { scope : ['email'] }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000' }), function(req, res) {
     res.redirect('http://localhost:3000/redirect?Id='+req.user._id);

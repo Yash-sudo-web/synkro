@@ -8,11 +8,12 @@ const expressSession = require('express-session');
 const app = express();
 const port = 5000;
 const connectMongoose = require("./db.js");
-const { initializingPassport, googlePassport } = require("./passportConfig");
+const { initializingPassport, googlePassport, facebookPassport } = require("./passportConfig");
 
 connectMongoose();
 initializingPassport(passport);
 googlePassport(passport);
+facebookPassport(passport);
 app.use(cookieSession({
     maxAge: 24*60*60*1000,
     keys: [process.env.COOKIE_KEY]

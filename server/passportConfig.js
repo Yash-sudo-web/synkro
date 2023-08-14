@@ -87,14 +87,27 @@ exports.googlePassport = (passport) => {
 
 exports.facebookPassport = (passport) => {
     passport.use(new FacebookStrategy({
-        clientID: FACEBOOK_APP_ID,
-        clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: "/api/user/facebook/callback"
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "/api/user/facebook/callback",
+        profileFields: ['id', 'emails', 'name']
       },
-      function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-          return cb(err, user);
-        });
+      async (accessToken, refreshToken, profile, cb) => {
+        const user = await User.findOne({ email: profile.emails[0].value });
+        if (user) {
+          return cb(null, user);
+        }
+        try {
+            const newUser = await User.create({
+                facebookId: profile.id,
+                userName: profile.displayName,
+                email: profile.emails[0].value,
+            });
+            return cb(null, newUser);
+        } catch (error) {
+            console.log(error);
+            return cb(error);
       }
+    }
     ));
 }

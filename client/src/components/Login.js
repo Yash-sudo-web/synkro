@@ -37,8 +37,11 @@ const Login = () => {
   };
   const handleGoogleAuth  = async (e) => {
     e.preventDefault();
-    localStorage.setItem('token', "Logged IN");
     window.location.href = "http://localhost:5000/api/user/google"
+  };
+  const handleFacebookAuth  = async (e) => {
+    e.preventDefault();
+    window.location.href = "http://localhost:5000/api/user/facebook"
   };
   return (
     <>
@@ -113,7 +116,7 @@ const Login = () => {
               <div className="ml-3">
                 <img width={24} height={24} src={facebook}></img>
               </div>
-              <div className="mr-3 text-white">
+              <div className="mr-3 text-white" onClick={handleFacebookAuth}>
                 <p>Sign in with Facebook</p>
               </div>
               <div></div>

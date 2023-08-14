@@ -2,7 +2,8 @@ import React from 'react'
 
 const main = () => {
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        const token = document.cookie.split('=')[1];
+        document.cookie = `token=${token}; max-age=-60`;
         window.location.href = '/';
     }
   return (

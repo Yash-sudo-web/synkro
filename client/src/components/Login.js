@@ -31,9 +31,14 @@ const Login = () => {
       body: JSON.stringify({ 'email':email, 'password':pass }),
     });
     const data = await response.json();
-    console.log(data);
+    if(data.success){
+      window.location.href = "http://localhost:3000/redirect?Id="+data.token;
+    }
+  };
+  const handleGoogleAuth  = async (e) => {
+    e.preventDefault();
     localStorage.setItem('token', "Logged IN");
-    window.location.href = "http://localhost:3000/app";
+    window.location.href = "http://localhost:5000/api/user/google"
   };
   return (
     <>
@@ -86,7 +91,7 @@ const Login = () => {
                   }`}
                   disabled={!isEmailFilled || !isPassFilled}
                 >
-                  Get Started
+                  Login
                 </button>
               </div>
             </form>
@@ -99,7 +104,7 @@ const Login = () => {
               <div className="ml-3">
                 <img width={24} height={24} src={google}></img>
               </div>
-              <div className="mr-[27px] text-white">
+              <div className="mr-[27px] text-white" onClick={handleGoogleAuth}>
                 <p>Sign in with Google</p>
               </div>
               <div></div>

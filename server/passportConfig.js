@@ -1,5 +1,6 @@
 const localStrategy = require('passport-local').Strategy
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy; 
 const User = require("./models/registration.js");
 const passport = require('passport');
 passport.serializeUser((user, done) => {
@@ -44,7 +45,6 @@ exports.initializingPassport = (passport) => {
 }
 
 exports.googlePassport = (passport) => {
-    
     passport.use(
       new GoogleStrategy(
         {
@@ -83,4 +83,18 @@ exports.googlePassport = (passport) => {
             return done(error)
         }
     });
+}
+
+exports.facebookPassport = (passport) => {
+    passport.use(new FacebookStrategy({
+        clientID: FACEBOOK_APP_ID,
+        clientSecret: FACEBOOK_APP_SECRET,
+        callbackURL: "/api/user/facebook/callback"
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });
+      }
+    ));
 }

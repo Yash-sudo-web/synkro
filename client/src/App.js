@@ -1,18 +1,19 @@
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Main from "./components/Main";
+import Redirect from "./components/Redirect";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 function App() {
   const ProtectedPrivateRoute = ({ path, element }) => {
-    const token = localStorage.getItem('token');
+    const token = document.cookie.split('=')[1];
     if (!token) {
       return <Navigate to="/" replace />;
     }
     return element;
   };
   const ProtectedPublicRoute = ({ path, element }) => {
-    const token = localStorage.getItem('token');
+    const token = document.cookie.split('=')[1];
     if (token) {
       return <Navigate to="/app" replace />;
     }
@@ -26,6 +27,7 @@ function App() {
       <Route path="/" element= { <ProtectedPublicRoute element={<Signup />} />} />
       <Route path="/login" element= { <ProtectedPublicRoute element={<Login />} />} />
       <Route path="/app" element= { <ProtectedPrivateRoute element={<Main />} />} />
+      <Route path="/redirect" element= { <ProtectedPublicRoute element={<Redirect />} />} />
     </Routes>
   </Router>
     </>

@@ -29,13 +29,18 @@ router.post('/register', async (req, res) => {
     }
 })
 router.post('/login',passport.authenticate("local"), async (req, res) => {
-    res.json("Logged in")
+    res.json({token:req.user._id,success:true})
 })
 
 router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), async (req, res)=> {
-    res.redirect('http://localhost:3000/app?Id='+req.user._id);
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), (req, res)=> {
+    res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
 });
+router.get('/facebook',passport.authenticate('facebook', { scope: ['public_profile'] }));
+
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000' }), function(req, res) {
+    res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
+  });
 
 module.exports = router;

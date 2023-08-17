@@ -43,4 +43,8 @@ router.get('/facebook/callback', passport.authenticate('facebook', { failureRedi
     res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
   });
 
+router.get('/getUser/:friendId', async (req, res) => {
+    const user = await User.findOne({_id:req.params.friendId})
+    res.status(200).send(user)
+})
 module.exports = router;

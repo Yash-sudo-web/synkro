@@ -100,4 +100,4 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## License
 
-This project is licensed under the MIT [License](https://github.com/Yash-sudo-web/synkro/blob/master/readme.md).
+This project is licensed under the [MIT License](https://github.com/Yash-sudo-web/synkro/blob/master/LICENSE).

@@ -6,11 +6,11 @@ Welcome to Synkro! This is a real-time chat application that combines the power 
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Technologies](#technologies)
 - [Contributing](#contributing)
 - [License](#license)
 

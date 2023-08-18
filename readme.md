@@ -97,3 +97,7 @@ Before you begin, ensure you have the following installed:
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow the usual GitHub fork and pull request workflow.
+
+## License
+
+This project is licensed under the MIT [License](https://github.com/Yash-sudo-web/synkro/blob/master/readme.md).

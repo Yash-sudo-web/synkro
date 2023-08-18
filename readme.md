@@ -1,6 +1,6 @@
-# MERN + TailwindCSS Chat App with Passport.js and Socket.io
+# Synkro - Realtime Chatting Application
 
-Welcome to the MERN + TailwindCSS Chat App with Passport.js and Socket.io! This is a real-time chat application that combines the power of the MERN (MongoDB, Express.js, React, Node.js) stack, along with TailwindCSS for styling, Passport.js for authentication, and Socket.io for real-time chatting.
+Welcome to Synkro! This is a real-time chat application that combines the power of the MERN (MongoDB, Express.js, React, Node.js) stack, along with TailwindCSS for styling, Passport.js for authentication, and Socket.io for real-time chatting.
 
 ## Table of Contents
 
@@ -26,6 +26,16 @@ This chat application allows users to create accounts, log in, and engage in rea
 - Sending and receiving text messages instantly
 - User-friendly interface for a seamless chatting experience
 
+## Technologies
+ - MongoDB: NoSQL database for storing user data and chat messages.
+ - Express.js: Web application framework for building the server.
+ - React: Front-end library for building user interfaces.
+ - Node.js: JavaScript runtime for server-side development.
+ - Passport.js: Authentication middleware for Node.js.
+ - Socket.io: Real-time communication library for web applications.
+ - TailwindCSS: Utility-first CSS framework for styling.
+ - Axios: Promise-based HTTP client for making requests.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -44,25 +54,17 @@ Before you begin, ensure you have the following installed:
     ```bash
     cd synkro
 
-3. Navigate to the server directory:
+3. Navigate to the server directory and Install the server-side dependencies:
 
     ```bash
     cd server
-
-4. Install server-side dependencies:
-
-    ```bash
     npm install
 
-5. Navigate to the client directory:
+4. Navigate to the client directory and Install client-side dependencies:
 
     ```bash
     cd ..
     cd client
-
-6. Install client-side dependencies:
-
-    ```bash
     npm install
 
 ## Configuration
@@ -91,3 +93,7 @@ Before you begin, ensure you have the following installed:
     npm start
 
 3. Open your web browser and navigate to http://localhost:3000 to access the chat app.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow the usual GitHub fork and pull request workflow.

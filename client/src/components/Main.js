@@ -4,6 +4,7 @@ import axios from 'axios';
 import Conversation from './Conversation';
 import Message from './Message';
 import io from 'socket.io-client';
+import { Link } from 'react-router-dom';
 const Main = () => {
   const userToken = document.cookie.split('=')[1];
   const [currentUser, setCurrentUser] = useState(userToken);
@@ -38,10 +39,7 @@ const Main = () => {
   }, [currentUser]);
   
   
-  const handleLogout = () => {
-    document.cookie = 'token=; max-age=-60';
-    window.location.href = '/';
-  }
+
   const handleSubmit = async () => {
     const message = {
       sender: currentUser,
@@ -99,7 +97,7 @@ const Main = () => {
         <div className='flex items-start justify-start min-w-[85%] min-h-[95%] bg-black'>
           <div className='bg-black min-w-[25%] min-h-[95vh]'>
             <div className='bg-[#a2fe65] min-w-[25%] min-h-[6vh] flex items-center border-b-2'>
-              <img src={iconuser} alt="User Icon" style={{ width: '48px', height: '48px' }}></img>
+              <Link to='/user'><img src={iconuser} alt="User Icon" style={{ width: '48px', height: '48px' }}></img></Link>
             </div>
             <div className='text-white border-b-2'>Searchbar</div>
             <div className='min-w-[25%] bg-[#0a0a0a]'>
@@ -110,15 +108,14 @@ const Main = () => {
               ))}
             </div>
           </div>
-          <div className='bg-gray-500 min-w-[75%] min-h-[95vh] flex flex-col justify-end'>
+          <div className='bg-gray-500 min-w-[75%] min-h-[95vh]'>
+            <div className='min-w-[25%] min-h-[6vh] bg-white'></div>
+            <div className='flex flex-col justify-end'>
           {currentConvo ? <>
           <div className='overflow-y-scroll max-h-[100%]'>
           {messages.map((message) => (
                   <Message message={message} own={message.sender === currentUser} />
               ))}
-              {/* <div>
-        <button onClick={handleLogout} className='w-[100px] h-[100px] bg-white'>Logout</button>
-        </div> */}
         </div>
           <div className='flex justify-between mb-2'>
           <textarea 
@@ -130,6 +127,7 @@ const Main = () => {
             <button onClick={handleSubmit} className='bg-blue-500 w-[10%] hover:bg-blue-300'>Send</button>
           </div>
           </> : <span className='text-white'>Open a conversation to start a chat.</span>}
+            </div>
           </div>
         </div>
       </div>

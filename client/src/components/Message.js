@@ -1,20 +1,37 @@
 import { format } from "timeago.js";
-
-const Message = ({ message, own }) => {
+import iconuser from '../assets/user.png';
+const Message = ({ message, own, user, friend }) => {
   return (
-    <div className={`flex flex-col mt-5 ${own ? "items-end" : ""}`}>
-      <div className="flex">
-        <img
-          className="w-8 h-8 rounded-full object-cover mr-2"
-          src="https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          alt=""
-        />
-        <p className={`p-2 rounded-2xl ${own ? "bg-gray-200" : "bg-blue-500 text-white"} max-w-xs`}>
-          {message.text}
-        </p>
+    <>
+      
+      {own?
+      <>
+      <div className="flex flex-col mt-5 items-end">
+      <div className="flex flex-col pl-5">
+      <div className="flex flex-row">
+      <div className="text-xs mt-2 text-white">{format(message.createdAt)}</div>
+      <p className="text-white">{user?.userName}</p>
+      <img className="w-[48px] h-[48px] rounded-full object-cover mr-2" src={user?.profilePicture ? user.profilePicture : iconuser} alt="pfp"/>
       </div>
-      <div className="text-xs mt-2">{format(message.createdAt)}</div>
+      <div>
+      <div className='pt-2 pb-2 rounded-2xl bg-[#77cc3a] min-w-[20px]'>{message.text}</div>
+      </div>
     </div>
+    </div></>:
+    <>
+    <div className="flex flex-col mt-5">
+    <div className="flex">
+    <img className="w-8 h-8 rounded-full object-cover mr-2" src={friend?.profilePicture ? friend.profilePicture : iconuser} alt="pfp"/>
+    <p className="text-white">{friend?.userName}</p>
+    <div className="text-xs mt-2 text-white">{format(message.createdAt)}</div>
+    <div className='p-2 rounded-2xl bg-[#1f1f23] text-white max-w-xs'>
+      {message.text}
+    </div>
+  </div></div>
+  </>
+        }
+      
+    </>
   );
 }
 

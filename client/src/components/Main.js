@@ -1,20 +1,48 @@
 import React, { useEffect, useState,useRef } from 'react';
 import iconuser from "../assets/user.png";
-import bg from "../assets/peakpx.jpg";
+import close from "../assets/close.png"
+import addfriendg from "../assets/addfriend.png"
+import search from "../assets/search.png";
+import logout from "../assets/logout.png"
+import send from "../assets/send.png";
 import axios from 'axios';
 import Conversation from './Conversation';
 import Message from './Message';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
+import "../index.css";
+
 const Main = () => {
+
   const userToken = document.cookie.split('=')[1];
+  const [friendopen, setfriendopen] = useState(false)
+  const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(userToken);
   const [currentConvo, setCurrentConvo] = useState(null);
+  const [currentConvoHeader, setCurrentConvoHeader] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [friend, setfriend] = useState(null)
   const [conversations, setConversations] = useState([]);
   const [Arrivalmessage, setArrivalmessage] = useState(null)
   const [newMessage, setNewMessage] = useState('');
   const socket = useRef()
+  const scrollRef = useRef();
+  useEffect(() => {
+
+    const getUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/user/getUser/"+currentUser);
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [currentUser]);
+    
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   useEffect(() => {
     socket.current=io('ws://localhost:5000');
@@ -38,8 +66,39 @@ const Main = () => {
       console.log(users);
     });
   }, [currentUser]);
+
+    const addfriend = async (e) => {
+      e.preventDefault();
+      try {
+        const res = await axios.post("http://localhost:5000/api/conversation", {
+          senderId: currentUser,
+          receiverId: friend,
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    useEffect(() => {
+      if(currentConvo == null){
+        return;}
+      const friendId = currentConvo.members.find((m) => m !== currentUser);
+      const getUser = async () => {
+        try {
+          const res = await axios.get("http://localhost:5000/api/user/getUser/"+friendId);
+          setCurrentConvoHeader(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getUser();
+    }, [currentConvo]);
   
-  
+  const handleLogout = () => {
+    document.cookie = 'token=; max-age=-60';
+    window.location.href = '/';
+  }
 
   const handleSubmit = async () => {
     const message = {
@@ -90,46 +149,113 @@ const Main = () => {
     if(currentConvo != null){getMessages();}
   }, [currentConvo]);
 
-
   return (
     <>
-      
-      <div className='flex items-center justify-center w-screen h-screen bg-[#18181b]'>
-        <div className='flex items-start justify-start min-w-[85%] min-h-[95%] bg-[#101012]'>
-          <div className='bg-[#101012] min-w-[25%] min-h-[95vh] border-r-2 border-[#18181b]'>
-            <div className='bg-[#101012] min-w-[25%] min-h-[6vh] flex items-center'>
-              <Link to='/user'><img src={iconuser} alt="User Icon" style={{ width: '48px', height: '48px' }}></img></Link>
+      {friendopen && (
+    <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-10 flex items-center justify-center z-30">
+      <div className="bg-gray-900 w-[25%] h-[50%] rounded-lg p-6 border flex flex-col items-center border-gray-700 relative">
+        <p className='font-semibold text-3xl text-white pb-2'>Add Friends</p>
+        <p className='text-white text-xl'>Enter your friend's Unique ID</p>
+        <form className='h-full w-full flex flex-col items-center'>
+        <input onChange={(e)=>setfriend(e.target.value)} value={friend} required className='w-[80%] h-[10%] bg-[#18181b] text-[#5d5d6d] rounded-2xl pl-6 mt-4' placeholder='Unique ID'></input>
+        <button onClick={addfriend} className='bg-[#a2fe65] rounded-3xl w-[30%] h-[10%] mt-4 flex items-center justify-center cursor-pointer hover:bg-[#77cc3a]'><p className='text-black font-semibold text-xl'>Add Friend</p></button>
+        </form>
+        <div onClick={()=>setfriendopen(false)} className='cursor-pointer absolute right-[5%]'><img className='w-[24px] h-[24px]' src={close}></img></div>
+        <div className='text-white'>This is your unique Id: {currentUser}</div>
+      </div>
+    </div>
+  )}
+      <div className="flex items-center justify-center w-screen h-screen bg-[#18181b]">
+        <div className="flex flex-col w-[85%] h-[90%] bg-[#101012] rounded-2xl">
+          <div className="w-full h-1/8 relative border-b border-[#34343d] rounded-t-2xl flex items-center">
+            <div className="absolute left-[4%] cursor-text w-[18%] h-[50%] bg-[#18181b] rounded-3xl flex flex-row items-center text-[#4d4d59] text-sm font-bold">
+              <div className="absolute left-[7%]">
+                <img
+                  src={search}
+                  style={{ width: "20px", height: "20px" }}
+                ></img>
+              </div>
+              <p className="left-[19%] absolute">search</p>
             </div>
-            <div className='text-white'>Searchbar</div>
-            <div className='min-w-[25%] bg-[#0a0a0a]'>
-              {conversations.map((conversation) => (
-                <div key={conversation.id} onClick={() => setCurrentConvo(conversation)}>
-                  <Conversation conversation={currentConvo} currentUser={currentUser} />
+            <div onClick={()=>setfriendopen(true)} className='text-white font-bold absolute right-[14%] w-[10%] h-[50%] bg-[#18181b] flex flex-row items-center cursor-pointer rounded-2xl'>
+              <div className='absolute left-[12%]'><img src={addfriendg} style={{width:'24px',height:'24px'}}></img></div>
+              <p className='absolute left-[35%]'>Add Friend</p>
+            </div>
+            <div
+              className="absolute right-1/10 cursor-pointer"
+              onClick={handleLogout}
+            >
+              <img src={logout} style={{ width: "32px", height: "32px" }}></img>
+            </div>
+            <div className="absolute right-3/100 cursor-pointer">
+              <Link to="/user">
+                <img
+                  className="rounded-3xl"
+                  src={
+                    user && user.profilePicture ? user.profilePicture : iconuser
+                  }
+                  style={{ width: "48px", height: "48px" }}
+                ></img>
+              </Link>
+            </div>
+          </div>
+          <div className="w-full h-full rounded-b-2xl flex flex-row">
+            <div className="w-1/4 h-full border-r border-[#34343d]">
+              <p className="font-semibold text-white text-4xl pt-[7%] pl-[15%]">
+                chats
+              </p>
+              <div className="pt-[5%]">
+                {conversations.map((conversation) => (
+                  <div
+                    className="pl-[13%]"
+                    key={conversation.id}
+                    onClick={() => setCurrentConvo(conversation)}
+                  >
+                    <Conversation
+                      conversation={conversation}
+                      currentUser={currentUser}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="w-3/4 h-full flex justify-center relative">
+              {currentConvoHeader?<div className="text-white w-[90%] h-[15%] flex flex-row items-center"><img className='w-[48px] h-[48px] rounded-3xl' src={currentConvoHeader.profilePicture}></img><p className='pl-5 font-semibold text-2xl'>{currentConvoHeader.userName}</p></div>:null}
+              <div className={`w-[90%] bg-[#18181b] absolute rounded-2xl ${currentConvo ? 'h-[75%] top-[15%]' : 'h-[90%] top-[5%]'}`}>
+                {currentConvo ? (<>
+                  <div className='h-[85%] overflow-y-auto'>
+                    {messages.map((message) => (
+                      <div ref={scrollRef}>
+                      <Message
+                        user={user}
+                        friend={currentConvoHeader}
+                        message={message}
+                        own={message.sender === currentUser}
+                      />
+                      </div>
+                    ))}
+                  </div>
+                  <div className='w-[100%] h-[15%] bg-[#1f1f23] rounded-b-2xl flex flex-row relative'>
+                  <input
+                  className="w-[90%] h-[100%] bg-[#1f1f23] text-[white] rounded-b-2xl pl-6"
+                  placeholder="Write something..."
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  value={newMessage}
+                ></input>
+                <div onClick={handleSubmit} className='bg-[#a2fe65] rounded-3xl w-[6%] h-[65%] right-[2%] top-[15%] absolute flex items-center cursor-pointer hover:bg-[#77cc3a]'><img className='absolute w-[32px] h-[32px] left-[23%]' src={send}></img></div>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className=' min-w-[75%] min-h-[95vh]'>
-            
-            <div className='flex flex-col' style={{ backgroundImage: `url(${bg})` }}>
-          {currentConvo ? <>
-
-          <div className='min-h-[88vh]'>
-          {messages.map((message) => (
-                  <Message message={message} own={message.sender === currentUser} />
-              ))}
-              <div className='flex justify-between mb-2' >
-          <textarea 
-          className='w-[90%] h-[10vh] bg-white text-black'
-          placeholder='Type your message here'  
-          onChange={(e)=>setNewMessage(e.target.value)}
-          value={newMessage}  
-            ></textarea>
-            <button onClick={handleSubmit} className='bg-blue-500 w-[10%] hover:bg-blue-300'>Send</button>
-          </div>
-        </div>
-          
-          </> : <div className='text-white text-6xl h-[95vh] font-extrabold flex flex-col items-center justify-center'> <div className='animate-bounce tracking-tight flex flex-col items-center justify-center'><p>Welcome to Synkro</p><p className='pt-4 text-[#a2fe65] text-2xl '>Open a conversation to start chatting.</p></div></div>}
+              </>
+                ) : (
+                  <div className="text-white text-6xl font-extrabold h-full w-full flex flex-col items-center justify-center">
+                    <div className="animate-bounce tracking-tight flex flex-col items-center justify-center">
+                      <p>Welcome to Synkro</p>
+                      <p className="pt-4 text-[#a2fe65] text-2xl ">
+                        Open a conversation to start chatting.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -138,4 +264,4 @@ const Main = () => {
   );
 }
 
-export default Main;
+export default Main

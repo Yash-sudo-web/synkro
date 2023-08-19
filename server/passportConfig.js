@@ -62,6 +62,7 @@ exports.googlePassport = (passport) => {
                     googleId: profile.id,
                     userName: profile.displayName,
                     email: profile.emails[0].value,
+                    profilePicture: profile.photos[0].value,
                 });
                 return cb(null, newUser);
             } catch (error) {
@@ -102,6 +103,7 @@ exports.facebookPassport = (passport) => {
                 facebookId: profile.id,
                 userName: profile.displayName,
                 email: profile.emails[0].value,
+                profilePicture: profile.photos[0].value,
             });
             return cb(null, newUser);
         } catch (error) {

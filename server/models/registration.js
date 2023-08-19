@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     dateOfBirth: { type: Date }, 
     gender: { type: String }, 
     location: { type: String },
+	profilePicture: { type: String },
 });
 
 

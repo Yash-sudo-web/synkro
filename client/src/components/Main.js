@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useRef } from 'react';
 import iconuser from "../assets/user.png";
+import bg from "../assets/peakpx.jpg";
 import axios from 'axios';
 import Conversation from './Conversation';
 import Message from './Message';
@@ -93,31 +94,31 @@ const Main = () => {
   return (
     <>
       
-      <div className='flex items-center justify-center w-screen h-screen bg-[#0a0a0a]'>
-        <div className='flex items-start justify-start min-w-[85%] min-h-[95%] bg-black'>
-          <div className='bg-black min-w-[25%] min-h-[95vh]'>
-            <div className='bg-[#a2fe65] min-w-[25%] min-h-[6vh] flex items-center border-b-2'>
+      <div className='flex items-center justify-center w-screen h-screen bg-[#18181b]'>
+        <div className='flex items-start justify-start min-w-[85%] min-h-[95%] bg-[#101012]'>
+          <div className='bg-[#101012] min-w-[25%] min-h-[95vh] border-r-2 border-[#18181b]'>
+            <div className='bg-[#101012] min-w-[25%] min-h-[6vh] flex items-center'>
               <Link to='/user'><img src={iconuser} alt="User Icon" style={{ width: '48px', height: '48px' }}></img></Link>
             </div>
-            <div className='text-white border-b-2'>Searchbar</div>
+            <div className='text-white'>Searchbar</div>
             <div className='min-w-[25%] bg-[#0a0a0a]'>
               {conversations.map((conversation) => (
                 <div key={conversation.id} onClick={() => setCurrentConvo(conversation)}>
-                  <Conversation conversation={conversation} currentUser={currentUser} />
+                  <Conversation conversation={currentConvo} currentUser={currentUser} />
                 </div>
               ))}
             </div>
           </div>
-          <div className='bg-gray-500 min-w-[75%] min-h-[95vh]'>
-            <div className='min-w-[25%] min-h-[6vh] bg-white'></div>
-            <div className='flex flex-col justify-end'>
+          <div className=' min-w-[75%] min-h-[95vh]'>
+            
+            <div className='flex flex-col' style={{ backgroundImage: `url(${bg})` }}>
           {currentConvo ? <>
-          <div className='overflow-y-scroll max-h-[100%]'>
+
+          <div className='min-h-[88vh]'>
           {messages.map((message) => (
                   <Message message={message} own={message.sender === currentUser} />
               ))}
-        </div>
-          <div className='flex justify-between mb-2'>
+              <div className='flex justify-between mb-2' >
           <textarea 
           className='w-[90%] h-[10vh] bg-white text-black'
           placeholder='Type your message here'  
@@ -126,7 +127,9 @@ const Main = () => {
             ></textarea>
             <button onClick={handleSubmit} className='bg-blue-500 w-[10%] hover:bg-blue-300'>Send</button>
           </div>
-          </> : <span className='text-white'>Open a conversation to start a chat.</span>}
+        </div>
+          
+          </> : <div className='text-white text-6xl h-[95vh] font-extrabold flex flex-col items-center justify-center'> <div className='animate-bounce tracking-tight flex flex-col items-center justify-center'><p>Welcome to Synkro</p><p className='pt-4 text-[#a2fe65] text-2xl '>Open a conversation to start chatting.</p></div></div>}
             </div>
           </div>
         </div>

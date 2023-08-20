@@ -1,4 +1,3 @@
-import { format } from "timeago.js";
 import iconuser from '../assets/user.png';
 const Message = ({ message, own, user, friend }) => {
 

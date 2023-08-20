@@ -6,7 +6,7 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 router.post('/register', async (req, res) => {
-    const user = await User.findOne({email:req.body.emailreq})
+    const user = await User.findOne({email:req.body.email})
     if(user){
         return res.status(400).json({message:"User already exists"})
     }
@@ -14,7 +14,7 @@ router.post('/register', async (req, res) => {
         const newUser = await User.create(
             {
                 userName:req.body.userName,
-                email:req.body.emailreq,
+                email:req.body.email,
                 password:req.body.password,
                 phoneNumber:req.body.phoneNumber,
                 dateOfBirth:req.body.dateOfBirth,

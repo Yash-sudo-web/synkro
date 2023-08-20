@@ -53,4 +53,4 @@ jobs:
           app-name: 'Synkro-backend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F6A5C6BCB3284F98AE3822BAADFE33DC }}
-          package: .
+          package: ./server

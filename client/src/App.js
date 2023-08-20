@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import Main from "./components/Main";
 import User from "./components/User";
 import Redirect from "./components/Redirect";
+import Test from "./components/Test";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <>
   <Router>
     <Routes>
+      <Route path="/hey" element = {<Test />} />
       <Route path="/" element= { <ProtectedPublicRoute element={<Signup />} />} />
       <Route path="/login" element= { <ProtectedPublicRoute element={<Login />} />} />
       <Route path="/app" element= { <ProtectedPrivateRoute element={<Main />} />} />

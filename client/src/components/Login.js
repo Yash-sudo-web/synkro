@@ -4,6 +4,7 @@ import google from "../assets/google.jpg";
 import facebook from "../assets/facebook.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "../index.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [isEmailFilled, setIsEmailFilled] = useState(false);
@@ -89,7 +90,7 @@ const Login = () => {
                 <button onClick={handleLogin}
                   className={`font-bold border border-[#525252] w-[340px] h-[50px] rounded-lg ${
                     isEmailFilled && isPassFilled
-                      ? "bg-[#a2fe65] text-[#0a0a0a] hover:cursor-pointer"
+                      ? "bg-[#a2fe65] text-[#0a0a0a] hover:cursor-pointer hover:bg-[#77cc3a]"
                       : "bg-[#141414] text-[#525252] cursor-not-allowed"
                   }`}
                   disabled={!isEmailFilled || !isPassFilled}

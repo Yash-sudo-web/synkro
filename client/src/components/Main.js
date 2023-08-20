@@ -12,10 +12,12 @@ import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import "../index.css";
 
+
 const Main = () => {
 
   const userToken = document.cookie.split('=')[1];
   const [friendopen, setfriendopen] = useState(false)
+  const [profileopen, setprofileopen] = useState(false)
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(userToken);
   const [currentConvo, setCurrentConvo] = useState(null);
@@ -27,6 +29,7 @@ const Main = () => {
   const [newMessage, setNewMessage] = useState('');
   const socket = useRef()
   const scrollRef = useRef();
+
   useEffect(() => {
 
     const getUser = async () => {
@@ -95,9 +98,13 @@ const Main = () => {
       getUser();
     }, [currentConvo]);
   
-  const handleLogout = () => {
-    document.cookie = 'token=; max-age=-60';
-    window.location.href = '/';
+  const handleLogout = () => { 
+    if (window.confirm("This action will log you out!!") === true) {
+      document.cookie = 'token=; max-age=-60';
+      window.location.href = '/';
+    } else {
+      return;
+    }
   }
 
   const handleSubmit = async () => {
@@ -153,15 +160,15 @@ const Main = () => {
     <>
       {friendopen && (
     <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-10 flex items-center justify-center z-30">
-      <div className="bg-gray-900 w-[25%] h-[50%] rounded-lg p-6 border flex flex-col items-center border-gray-700 relative">
+      <div className="bg-gray-900 w-[25%] h-[25%] rounded-lg p-6 border flex flex-col items-center border-gray-700 relative">
         <p className='font-semibold text-3xl text-white pb-2'>Add Friends</p>
         <p className='text-white text-xl'>Enter your friend's Unique ID</p>
         <form className='h-full w-full flex flex-col items-center'>
-        <input onChange={(e)=>setfriend(e.target.value)} value={friend} required className='w-[80%] h-[10%] bg-[#18181b] text-[#5d5d6d] rounded-2xl pl-6 mt-4' placeholder='Unique ID'></input>
-        <button onClick={addfriend} className='bg-[#a2fe65] rounded-3xl w-[30%] h-[10%] mt-4 flex items-center justify-center cursor-pointer hover:bg-[#77cc3a]'><p className='text-black font-semibold text-xl'>Add Friend</p></button>
+        <input onChange={(e)=>setfriend(e.target.value)} value={friend} required className='w-[80%] h-[40%] bg-[#18181b] text-[#5d5d6d] border rounded-2xl pl-6 mt-4' placeholder='Unique ID'></input>
+        <button onClick={addfriend} className='bg-[#a2fe65] rounded-3xl w-[30%] h-[40%] mt-4 flex items-center justify-center cursor-pointer hover:bg-[#77cc3a]'><p className='text-black font-semibold text-xl'>Add Friend</p></button>
         </form>
         <div onClick={()=>setfriendopen(false)} className='cursor-pointer absolute right-[5%]'><img className='w-[24px] h-[24px]' src={close}></img></div>
-        <div className='text-white'>This is your unique Id: {currentUser}</div>
+        <div className='text-white pt-2'>This is your unique Id: {currentUser}</div>
       </div>
     </div>
   )}
@@ -177,26 +184,26 @@ const Main = () => {
               </div>
               <p className="left-[19%] absolute">search</p>
             </div>
-            <div onClick={()=>setfriendopen(true)} className='text-white font-bold absolute right-[14%] w-[10%] h-[50%] bg-[#18181b] flex flex-row items-center cursor-pointer rounded-2xl'>
+            <div onClick={()=>setfriendopen(true)} className='text-white font-bold absolute right-[16%] w-[10%] h-[50%] bg-[#18181b] flex flex-row items-center cursor-pointer rounded-2xl'>
               <div className='absolute left-[12%]'><img src={addfriendg} style={{width:'24px',height:'24px'}}></img></div>
               <p className='absolute left-[35%]'>Add Friend</p>
             </div>
             <div
-              className="absolute right-1/10 cursor-pointer"
+              className="absolute right-[12%] cursor-pointer"
               onClick={handleLogout}
             >
               <img src={logout} style={{ width: "32px", height: "32px" }}></img>
             </div>
-            <div className="absolute right-3/100 cursor-pointer">
-              <Link to="/user">
+
+            <div onClick={()=>setprofileopen(true)} className="absolute flex flex-row items-center right-[4%] cursor-pointer">
                 <img
                   className="rounded-3xl"
                   src={
-                    user && user.profilePicture ? user.profilePicture : iconuser
+                    user?.profilePicture ? user.profilePicture : iconuser
                   }
                   style={{ width: "48px", height: "48px" }}
                 ></img>
-              </Link>
+                <p className="text-white font-bold text-xl pl-3">{user?.userName.split(' ')[0]}</p>
             </div>
           </div>
           <div className="w-full h-full rounded-b-2xl flex flex-row">
@@ -242,7 +249,7 @@ const Main = () => {
                   onChange={(e) => setNewMessage(e.target.value)}
                   value={newMessage}
                 ></input>
-                <div onClick={handleSubmit} className='bg-[#a2fe65] rounded-3xl w-[6%] h-[65%] right-[2%] top-[15%] absolute flex items-center cursor-pointer hover:bg-[#77cc3a]'><img className='absolute w-[32px] h-[32px] left-[23%]' src={send}></img></div>
+                <div onClick={handleSubmit} className='rounded-3xl w-[6%] h-[65%] right-[2%] top-[15%] absolute flex items-center cursor-pointer bg-[#77cc3a]'><img className='absolute w-[32px] h-[32px] left-[23%]' src={send}></img></div>
                 </div>
               </>
                 ) : (

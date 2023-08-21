@@ -6,6 +6,7 @@ Welcome to Synkro! This is a real-time chat application that combines the power 
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Preview](#preview)
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -25,6 +26,10 @@ This chat application allows users to create accounts, log in, and engage in rea
 - Responsive and visually appealing design with TailwindCSS
 - Sending and receiving text messages instantly
 - User-friendly interface for a seamless chatting experience
+
+## Preview
+
+https://github.com/Yash-sudo-web/synkro/assets/69838816/3cb974fd-52d0-42b9-b2fd-f9b3e7f00a5e
 
 ## Technologies
  - MongoDB: NoSQL database for storing user data and chat messages.

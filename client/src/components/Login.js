@@ -45,8 +45,8 @@ const Login = () => {
     window.location.href = "http://localhost:5000/api/user/facebook"
   };
   return (
-    <>
-      <div className="border-b-[1px] border-[#525252] text-white h-[60px] flex items-center">
+    <div className="w-screen h-screen">
+      <div className="border-b-[1px] border-[#525252] text-white h-[8%] flex items-center">
         <div className="w-[32px] flex flex-row ml-4">
           <img src={logo} alt="logo" />
           <div className="ml-2 text-3xl">Synkro</div>
@@ -125,7 +125,7 @@ const Login = () => {
             <div className="text-[#9b9b9b] font-semibold">New to Synkro? <Link to="/"><span className="text-[#a2fe65]">Sign up</span></Link></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

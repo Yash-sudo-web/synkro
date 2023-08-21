@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import arrow from "../assets/arrow.png"
 import back from "../assets/back.png"
 import arrowgray from "../assets/arrowgray.png"
+import anim from "../assets/anim.gif"
 import { Link } from "react-router-dom";
 import "../index.css";
 import axios from "axios";
@@ -75,9 +76,9 @@ const Signup = () => {
   };
 
   return (
-    <>
+    <div className="h-screen w-screen">
       {/* upper logo part */}
-      <div className="border-b-[1px] border-[#525252] text-white h-[60px] flex items-center">
+      <div className="border-b-[1px] border-[#525252] text-white h-[8%] flex items-center">
         <div className="w-[32px] flex flex-row ml-4">
           <img src={logo} alt="logo" />
           <div className="ml-2 text-3xl">Synkro</div>
@@ -86,8 +87,8 @@ const Signup = () => {
 
       <div className="flex flex-row h-screen">
         {/* left div */}
-        <div className="text-white border-r-[1px] border-[#525252] h-[100%] w-[25%] relative flex justify-center">
-          <div className="absolute top-[60px] flex flex-col">
+        <div className="text-white relative border-r-[1px] border-[#525252] h-[100%] w-[25%] flex justify-center">
+          <div className="absolute top-[10%] flex flex-col">
             <p className="text-[44px]">
               Synkro your chats
               <br /> with us.
@@ -98,19 +99,19 @@ const Signup = () => {
               <br /> Moments Across the Globe, Anytime, Anywhere!"
             </p>
             <div className="hover:cursor-pointer border border-[#525252] w-[340px] rounded-lg h-[50px] flex flex-row justify-between items-center mb-6">
-              <div className="ml-3">
+              <div className="pl-3">
                 <img width={24} height={24} src={google}></img>
               </div>
-              <div className="mr-[27px]" onClick={handleGoogleAuth}>
+              <div className="pr-[27px]" onClick={handleGoogleAuth}>
                 <p>Sign in with Google</p>
               </div>
               <div></div>
             </div>
             <div className="hover:cursor-pointer border border-[#525252] w-[340px] rounded-lg h-[50px] flex flex-row justify-between items-center mb-6">
-              <div className="ml-3">
+              <div className="pl-3">
                 <img width={24} height={24} src={facebook}></img>
               </div>
-              <div className="mr-3" onClick={handleFacebookAuth}>
+              <div className="pr-3" onClick={handleFacebookAuth}>
                 <p>Sign in with Facebook</p>
               </div>
               <div></div>
@@ -120,7 +121,7 @@ const Signup = () => {
               <hr class="h-px w-[144.5px] my-3 ml-4 bg-[#525252] border-0"></hr>
             </div>
             <div>
-              <form className="mt-3">
+              <form className="pt-3">
                 <label>
                   Email<span className="text-[#a2fe65]">*</span>
                 </label>
@@ -167,6 +168,13 @@ const Signup = () => {
           {/* {data.emailreq && (
             <div className="text-white text-2xl">{data.emailreq}</div>
           )} */}
+
+          {(!Authinfo && !isAuthFilled) && <>
+            <div className="flex justify-center items-center pb-12">
+              <img src={anim} alt="animation" className="w-[600px] h-[440px]"/>
+            </div>
+          </>}
+
           {(Authinfo && !isAuthFilled) && (
             <>
               <div className="bg-[#18181b] h-[75%] w-[60%] relative flex flex-col items-center justify-center rounded-2xl top-[10%]">
@@ -299,7 +307,7 @@ const Signup = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

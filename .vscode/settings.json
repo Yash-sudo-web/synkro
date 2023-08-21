@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b7b3d9c7-4f1d-471d-ac47-1c278d991adc/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/synkro-backend",
+    "appService.deploySubpath": "server"
+}

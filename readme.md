@@ -5,8 +5,8 @@ Welcome to Synkro! This is a real-time chat application that combines the power 
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Features](#features)
 - [Preview](#preview)
+- [Features](#features)
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -19,6 +19,10 @@ Welcome to Synkro! This is a real-time chat application that combines the power 
 
 This chat application allows users to create accounts, log in, and engage in real-time conversations with other users. The application uses the MERN stack, which is a popular choice for building full-stack web applications, along with TailwindCSS for easy and responsive styling. Passport.js provides user authentication, and Socket.io enables real-time communication between users.
 
+## Preview
+
+https://github.com/Yash-sudo-web/synkro/assets/69838816/3cb974fd-52d0-42b9-b2fd-f9b3e7f00a5e
+
 ## Features
 
 - User registration and authentication using Passport.js
@@ -26,10 +30,6 @@ This chat application allows users to create accounts, log in, and engage in rea
 - Responsive and visually appealing design with TailwindCSS
 - Sending and receiving text messages instantly
 - User-friendly interface for a seamless chatting experience
-
-## Preview
-
-https://github.com/Yash-sudo-web/synkro/assets/69838816/3cb974fd-52d0-42b9-b2fd-f9b3e7f00a5e
 
 ## Technologies
  - MongoDB: NoSQL database for storing user data and chat messages.

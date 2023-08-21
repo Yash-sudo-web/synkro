@@ -227,7 +227,7 @@ const Main = () => {
               </div>
             </div>
             <div className="w-3/4 h-full flex justify-center relative">
-              {currentConvoHeader?<div className="text-white w-[90%] h-[15%] flex flex-row items-center"><img className='w-[48px] h-[48px] rounded-3xl' src={currentConvoHeader.profilePicture}></img><p className='pl-5 font-semibold text-2xl'>{currentConvoHeader.userName}</p></div>:null}
+              {currentConvoHeader?<div className="text-white w-[90%] h-[15%] flex flex-row items-center"><img className='w-[48px] h-[48px] rounded-3xl' src={currentConvoHeader?.profilePicture ? currentConvoHeader?.profilePicture : iconuser}></img><p className='pl-5 font-semibold text-2xl'>{currentConvoHeader.userName}</p></div>:null}
               <div className={`w-[90%] bg-[#18181b] absolute rounded-2xl ${currentConvo ? 'h-[75%] top-[15%]' : 'h-[90%] top-[5%]'}`}>
                 {currentConvo ? (<>
                   <div className='h-[85%] overflow-y-auto'>

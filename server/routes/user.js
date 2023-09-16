@@ -35,12 +35,12 @@ router.post('/login',passport.authenticate("local"), async (req, res) => {
 router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }), (req, res)=> {
-    res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
+    res.redirect('https://synkro-six.vercel.app/redirect?Id='+req.user._id);
 });
 router.get('/facebook',passport.authenticate('facebook', { scope : ['email'] }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000' }), function(req, res) {
-    res.redirect('http://localhost:3000/redirect?Id='+req.user._id);
+    res.redirect('https://synkro-six.vercel.app/redirect?Id='+req.user._id);
   });
 
 router.get('/getUser/:friendId', async (req, res) => {

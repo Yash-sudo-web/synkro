@@ -54,7 +54,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://synkro-backend.azurewebsites.net/api/user/register",
+        "https://synkro-backend.vercel.app/api/user/register",
         data
       );
       const res = await response.data;
@@ -68,11 +68,11 @@ const Signup = () => {
   };
   const handleGoogleAuth  = async (e) => {
     e.preventDefault();
-    window.location.href = "https://synkro-backend.azurewebsites.net/api/user/google"
+    window.location.href = "https://synkro-backend.vercel.app/api/user/google"
   };
   const handleFacebookAuth  = async (e) => {
     e.preventDefault();
-    window.location.href = "https://synkro-backend.azurewebsites.net/api/user/facebook"
+    window.location.href = "https://synkro-backend.vercel.app/api/user/facebook"
   };
 
   return (

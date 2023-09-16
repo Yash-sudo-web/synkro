@@ -23,7 +23,7 @@ const Login = () => {
   };
   const handleLogin = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:5000/api/user/login", {
+    const response = await fetch("https://synkro-backend.azurewebsites.net/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,11 +38,11 @@ const Login = () => {
   };
   const handleGoogleAuth  = async (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:5000/api/user/google"
+    window.location.href = "https://synkro-backend.azurewebsites.net/api/user/google"
   };
   const handleFacebookAuth  = async (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:5000/api/user/facebook"
+    window.location.href = "https://synkro-backend.azurewebsites.net/api/user/facebook"
   };
   return (
     <div className="w-screen h-screen">

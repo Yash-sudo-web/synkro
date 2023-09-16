@@ -34,7 +34,7 @@ const Main = () => {
 
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/user/getUser/"+currentUser);
+        const res = await axios.get("https://synkro-backend.azurewebsites.net/api/user/getUser/"+currentUser);
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -73,7 +73,7 @@ const Main = () => {
     const addfriend = async (e) => {
       e.preventDefault();
       try {
-        const res = await axios.post("http://localhost:5000/api/conversation", {
+        const res = await axios.post("https://synkro-backend.azurewebsites.net/api/conversation", {
           senderId: currentUser,
           receiverId: friend,
         });
@@ -89,7 +89,7 @@ const Main = () => {
       const friendId = currentConvo.members.find((m) => m !== currentUser);
       const getUser = async () => {
         try {
-          const res = await axios.get("http://localhost:5000/api/user/getUser/"+friendId);
+          const res = await axios.get("https://synkro-backend.azurewebsites.net/api/user/getUser/"+friendId);
           setCurrentConvoHeader(res.data);
         } catch (err) {
           console.log(err);
@@ -123,7 +123,7 @@ const Main = () => {
     });
 
     try {
-      const res = await axios.post('http://localhost:5000/api/messages', message);
+      const res = await axios.post('https://synkro-backend.azurewebsites.net/api/messages', message);
       setMessages([...messages, res.data]);
       setNewMessage('');
     } catch (error) {
@@ -133,7 +133,7 @@ const Main = () => {
   useEffect(() => {
     const getUserConversations = async () => {
       try { 
-        const response = await axios.get(`http://localhost:5000/api/conversation/${userToken}`);
+        const response = await axios.get(`https://synkro-backend.azurewebsites.net/api/conversation/${userToken}`);
         setConversations(response.data);
       } catch (error) {
         console.log(error);
@@ -146,7 +146,7 @@ const Main = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/messages/${currentConvo?._id}`);
+        const response = await axios.get(`https://synkro-backend.azurewebsites.net/api/messages/${currentConvo?._id}`);
         setMessages(response.data);
         console.log(response.data)
       } catch (error) {

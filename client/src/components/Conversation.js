@@ -8,7 +8,7 @@ const Conversation = ({ conversation, currentUser}) => {
 
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/user/getUser/"+friendId);
+        const res = await axios.get("https://synkro-backend.azurewebsites.net/api/user/getUser/"+friendId);
         setUser(res.data);
       } catch (err) {
         console.log(err);
